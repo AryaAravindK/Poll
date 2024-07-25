@@ -2,6 +2,7 @@
 
 {% block title %}
     Available Polls
+    
 {% endblock %}
 
 {% block content %}
@@ -12,7 +13,7 @@
         {% for poll in polls %}
             {% if poll.quiz_visible %}
                 <div class="col-md-6">
-                    <div class="card mb-4 bg-black bg-gradient">
+                    <div class="card mb-4 bg-black bg-gradient mbg">
                         <div class="card-body">
                             <h2 class="card-title">{{ poll.title }}</h2>
                             <p class="card-text">{{ poll.description }}</p>

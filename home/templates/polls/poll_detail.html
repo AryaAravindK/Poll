@@ -6,14 +6,17 @@ Poll
 
 {% block content %}
 <div class="container mt-5">
-   
-    <h1 class="mb-4">{{ poll.title }}</h1>
+   <div class=" p-3 rounded m-1 " style="background-color: rgba(255, 255, 255, 0.2);">
+
+    <div class="h4 pb-2 mb-4 fs-1 border-bottom border-light">
+        {{ poll.title }}
+    </div>  
     <p>{{ poll.description }}</p>
     <p>Created at: {{ poll.created_at }}</p>
     <p>Valid till: {{ poll.valid_till }}</p>
-
+   </div>
 {% if user_form %}
-    <div class='container bg-black bg-gradient text-center'>
+    <div class='container bg-black bg-gradient text-center rounded-top'>
         <div class="row">
         <h2>Please Provide credentials before starting the Poll</h2>
         </div>
@@ -27,15 +30,15 @@ Poll
     </div>
     </div>
 {% else %}
-<div class="form p-3 m-3  bg-gradient">
+<div class="form p-3 m-3  bg-light-subtle bg-gradient text-center border rounded">
     <form method="post">
         {% csrf_token %}
         {% for mcq in mcqs %}
-            <h3>{{ mcq.question }}</h3>
-            <input type="radio" name="choice_{{ mcq.id }}" value="A"> {{ mcq.optionA }}<br>
-            <input type="radio" name="choice_{{ mcq.id }}" value="B"> {{ mcq.optionB }}<br>
-            <input type="radio" name="choice_{{ mcq.id }}" value="C"> {{ mcq.optionC }}<br>
-            <input type="radio" name="choice_{{ mcq.id }}" value="D"> {{ mcq.optionD }}<br>
+            <h3 class="fs-1 fw-bold">{{ mcq.question }}</h3>
+            <input type="radio" name="choice_{{ mcq.id }}" value="A" class="form-check-input" > {{ mcq.optionA }}<br>
+            <input type="radio" name="choice_{{ mcq.id }}" value="B" class="form-check-input"> {{ mcq.optionB }}<br>
+            <input type="radio" name="choice_{{ mcq.id }}" value="C" class="form-check-input"> {{ mcq.optionC }}<br>
+            <input type="radio" name="choice_{{ mcq.id }}" value="D" class="form-check-input"> {{ mcq.optionD }}<br>
         {% endfor %}
         {% for desc in descriptions %}
             <h3>{{ desc.question }}</h3>

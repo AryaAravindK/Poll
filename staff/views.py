@@ -1,6 +1,31 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from home.models import Poll, Response
 
-# Create your views here.
-def staff(request):
-    return HttpResponse('staff page')
+def select_poll(request):
+    selected_poll_id = None
+    if request.method == 'POST':
+        selected_poll_id = request.POST.get('poll')
+        if selected_poll_id:
+            # Set quiz_visible to False for all polls
+            Poll.objects.all().update(quiz_visible=False)
+            
+            # Set quiz_visible to True for the selected poll
+            selected_poll = Poll.objects.get(id=selected_poll_id)
+            selected_poll.quiz_visible = True
+            selected_poll.save()
+    
+    polls = Poll.objects.all()
+    
+    
+    if selected_poll_id:
+        responses = Response.objects.filter(poll_id=selected_poll_id).order_by('-score','submit_time' )
+    else:
+        responses = Response.objects.none()  # No responses if no poll is selected
+
+    return render(request, 'select_poll.html', {
+        'polls': polls,
+        'selected_poll_id': selected_poll_id,
+        'responses': responses
+    })
+
+

@@ -70,7 +70,7 @@ def poll_detail(request, poll_id):
 
 def poll_results(request, poll_id):
     poll = get_object_or_404(Poll, pk=poll_id)
-    responses = Response.objects.filter(poll=poll)
+    responses = Response.objects.filter(poll=poll).order_by('submit_time','-score')
     
     return render(request, 'polls/poll_results.html', {'poll': poll, 'responses': responses , 'quiz_complete': poll.quiz_complete})
 

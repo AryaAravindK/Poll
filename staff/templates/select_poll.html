@@ -1,4 +1,3 @@
-<!-- select_poll.html -->
 {% extends "layout.html" %}
 
 {% block title %}
@@ -13,14 +12,15 @@
         {% csrf_token %}
         {% for poll in polls %}
             <div class="form-check bg-black text-center p-4 mb-3 bg-gradient me-3 rounded-pill">
-                <input class="form-check-input p-3 my-0 mx-1" type="radio" name="poll" id="poll{{ poll.id }}" value="{{ poll.id }}" {% if poll.quiz_visible %}checked{% endif %}>
+                <input class="form-check-input p-3 my-0 mx-1" type="radio" name="poll" id="poll{{ poll.id }}" value="{{ poll.id }}" {% if poll.id|stringformat:"s" == selected_poll_id %}checked{% endif %}>
                 <label class="form-check-label fw-bolder fs-3" for="poll{{ poll.id }}">
                     {{ poll.title }}
                 </label>
             </div>
         {% endfor %}
         <div class="w-100"></div>
-        <button type="submit" class="btn btn-primary mt-3">Display</button>
+        <button type="submit" name="action" value="display" class="btn btn-primary mt-3">Display</button>
+        <button type="submit" name="action" value="show_results" class="btn btn-success mt-3">Show Results</button>
     </form>
 </div>
 
@@ -36,7 +36,7 @@
             <th scope="col">Score</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="leaderboard-table">
           {% for response in responses %}
           <tr>
             <th scope="row">{{ forloop.counter }}</th>

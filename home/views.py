@@ -71,9 +71,11 @@ def poll_detail(request, poll_id):
 def poll_results(request, poll_id):
     poll = get_object_or_404(Poll, pk=poll_id)
     responses = Response.objects.filter(poll=poll)
-    return render(request, 'polls/poll_results.html', {'poll': poll, 'responses': responses})
+    
+    return render(request, 'polls/poll_results.html', {'poll': poll, 'responses': responses , 'quiz_complete': poll.quiz_complete})
 
 def result(request): 
     polls = Poll.objects.all()
     Responses = Response.objects.all().order_by('-score','submit_time')
+    
     return render(request, 'polls/result.html', {'responses':Responses})

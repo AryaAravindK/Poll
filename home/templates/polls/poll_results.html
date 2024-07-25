@@ -10,24 +10,32 @@
     <p class='fs-3'>{{ poll.description }}</p>
 
     <div class="list-group p-2 m-2">
-        {% for response in responses %}
-            <div class="list-group-item p-5">
-                <h5 class="mb-1 fs-1 fw-bold text-capitalize">{{ response.user_info.name }}</h5>
-                {% if response.mcq %}
-                    <p class="mb-1"><strong>Question:</strong> {{ response.mcq.question }}</p>
-                    <p class="mb-1"><strong>Your Answer:</strong> {{ response.answer }}</p>
-                    <p class="mb-1"><strong>Correct Answer:</strong> {{ response.mcq.correct_answer }}</p>
-                    <p class="mb-1"><strong>Score:</strong> {{ response.score }}</p>
-                {% elif response.description %}
-                    <p class="mb-1"><strong>Question:</strong> {{ response.description.question }}</p>
-                    <p class="mb-1"><strong>Your Answer:</strong> {{ response.answer }}</p>
-                    <p class="mb-1"><strong>Expected Answer:</strong> {{ response.description.answer }}</p>
-                    <p class="mb-1"><strong>Score:</strong> {{ response.score }}</p>
-                {% endif %}
-                <p class="mb-1"><strong>Submitted At:</strong> {{ response.submit_time }}</p>
-                <p class="mb-1 fs-3"><strong>Score:</strong> {{ response.score }}</p>
-            </div>
-        {% endfor %}
+        {% if quiz_complete %}
+            {% if responses %}
+                {% for response in responses %}
+                    <div class="list-group-item p-5">
+                        <h5 class="mb-1 fs-1 fw-bold text-capitalize">{{ response.user_info.name }}</h5>
+                        {% if response.mcq %}
+                            <p class="mb-1"><strong>Question:</strong> {{ response.mcq.question }}</p>
+                            <p class="mb-1"><strong>Your Answer:</strong> {{ response.answer }}</p>
+                            <p class="mb-1"><strong>Correct Answer:</strong> {{ response.mcq.correct_answer }}</p>
+                            <p class="mb-1"><strong>Score:</strong> {{ response.score }}</p>
+                        {% elif response.description %}
+                            <p class="mb-1"><strong>Question:</strong> {{ response.description.question }}</p>
+                            <p class="mb-1"><strong>Your Answer:</strong> {{ response.answer }}</p>
+                            <p class="mb-1"><strong>Expected Answer:</strong> {{ response.description.answer }}</p>
+                            <p class="mb-1"><strong>Score:</strong> {{ response.score }}</p>
+                        {% endif %}
+                        <p class="mb-1"><strong>Submitted At:</strong> {{ response.submit_time }}</p>
+                        <p class="mb-1 fs-3"><strong>Score:</strong> {{ response.score }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div>No responses found.</div>
+            {% endif %}
+        {% else %}
+            <div>Response submitted, waiting for results...</div>
+        {% endif %}
         <a href="{% url 'index' %}" class='btn btn-primary m-4 p-2'>Home</a>
     </div>
 </div>

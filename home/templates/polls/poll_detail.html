@@ -30,11 +30,11 @@ Poll
     </div>
     </div>
 {% else %}
-<div class="form p-3 m-3  bg-light-subtle bg-gradient text-center border rounded">
+<div class="form p-3 m-3  bg-light-subtle bg-gradient  border rounded">
     <form method="post">
         {% csrf_token %}
         {% for mcq in mcqs %}
-            <h3 class="fs-1 fw-bold">{{ mcq.question }}</h3>
+            <h3 class="fs-3 text-center fw-bold">{{ mcq.question }}</h3>
             <input type="radio" name="choice_{{ mcq.id }}" value="A" class="form-check-input" > {{ mcq.optionA }}<br>
             <input type="radio" name="choice_{{ mcq.id }}" value="B" class="form-check-input"> {{ mcq.optionB }}<br>
             <input type="radio" name="choice_{{ mcq.id }}" value="C" class="form-check-input"> {{ mcq.optionC }}<br>

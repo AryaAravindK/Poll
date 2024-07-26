@@ -5,29 +5,19 @@
 {% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <h1 class="mb-4">Results for {{ poll.title }}</h1>
-    <p class='fs-3'>{{ poll.description }}</p>
+<div class="container mt-5 ">
+    <h1 class="mb-4 text-center">Results for {{ poll.title }}</h1>
+    
 
-    <div class="list-group p-2 m-2">
+    <div class="list-group m-1">
         {% if quiz_complete %}
             {% if responses %}
                 {% for response in responses %}
-                    <div class="list-group-item p-5">
-                        <h5 class="mb-1 fs-1 fw-bold text-capitalize">{{ response.user_info.name }}</h5>
-                        {% if response.mcq %}
-                            <p class="mb-1"><strong>Question:</strong> {{ response.mcq.question }}</p>
-                            <p class="mb-1"><strong>Your Answer:</strong> {{ response.answer }}</p>
-                            <p class="mb-1"><strong>Correct Answer:</strong> {{ response.mcq.correct_answer }}</p>
-                            <p class="mb-1"><strong>Score:</strong> {{ response.score }}</p>
-                        {% elif response.description %}
-                            <p class="mb-1"><strong>Question:</strong> {{ response.description.question }}</p>
-                            <p class="mb-1"><strong>Your Answer:</strong> {{ response.answer }}</p>
-                            <p class="mb-1"><strong>Expected Answer:</strong> {{ response.description.answer }}</p>
-                            <p class="mb-1"><strong>Score:</strong> {{ response.score }}</p>
-                        {% endif %}
+                    <div class="list-group-item bg-dark-subtile p-5">
+                        <h5 class="mb-1 fs-3 fw-bold text-capitalize">{{ response.user_info.name }}</h5>
+                        
                         <p class="mb-1"><strong>Submitted At:</strong> {{ response.submit_time }}</p>
-                        <p class="mb-1 fs-3"><strong>Score:</strong> {{ response.score }}</p>
+                        <p class="mb-1 fs-4"><strong>Score:</strong> {{ response.score }}</p>
                     </div>
                 {% endfor %}
             {% else %}

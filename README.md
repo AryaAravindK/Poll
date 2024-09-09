@@ -1,2 +1,2 @@
 # QUIZ POLL APP
-##An web application built using Django
+##A web application built using Django

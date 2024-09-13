@@ -190,5 +190,8 @@ img {
   }
   .login__title {
     font-size: 2rem;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
   }
 }

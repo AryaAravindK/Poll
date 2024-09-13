@@ -43,3 +43,5 @@ def select_poll(request):
     })
 
 
+def create_poll(request):
+    return render(request,'create_poll.html')

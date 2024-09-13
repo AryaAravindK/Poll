@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from home.models import Poll, Response
+from django.contrib.auth.decorators import login_required 
 
+
+@login_required
 def select_poll(request):
     selected_poll_id = None
     action = request.POST.get('action')
@@ -38,3 +41,5 @@ def select_poll(request):
         'selected_poll_id': selected_poll_id,
         'responses': responses
     })
+
+

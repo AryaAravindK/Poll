@@ -13,6 +13,15 @@ def poll_detail(request, poll_id):
     poll = get_object_or_404(Poll, pk=poll_id)
     mcqs = MCQ.objects.filter(poll=poll)
     descriptions = Descriptive.objects.filter(poll=poll)
+    
+    # to prevent duplicate response
+    user_info_id = request.session.get('user_info_id')
+    if user_info_id:
+        user_info = UserInfo.objects.get(pk=user_info_id)
+        existing_response = Response.objects.filter(user_info=user_info, poll=poll).exists()
+        if existing_response:
+            # Redirect to results if the user has already submitted a response
+            return redirect('poll_results', poll_id=poll.id)
 
     if request.method == 'POST':
         if 'name' in request.POST and 'phone_number' in request.POST:
